@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <!-- 定义全局变量，日志文件路径和格式 -->
+    <Properties>
+        <Property name="log.path">D:/dev</Property>
+        <Property name="log.name">forlan-log4j2</Property>
+        <Property name="file.pattern">%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{50} - %msg%n</Property>
+    </Properties>
+
+    <!-- 控制台输出配置 -->
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="${file.pattern}"/>
+            <ThresholdFilter level="DEBUG"/>
+        </Console>
+
+        <!-- 文件输出配置 -->
+        <RollingFile name="INFO_FILE" fileName="${log.path}/${log.name}.info.log"
+                     filePattern="${log.path}/%d{yyyy-MM-dd}/${log.name}.info.%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${file.pattern}"/>
+            <LevelMatchFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <!-- 每个文件最大10MB -->
+            <SizeBasedTriggeringPolicy size="10MB"/>
+            <!-- 最多保留30天的历史记录 -->
+            <DefaultRolloverStrategy max="30"/>
+        </RollingFile>
+
+        <!-- 文件输出配置 -->
+        <RollingFile name="ERROR_FILE" fileName="${log.path}/${log.name}.error.log"
+                     filePattern="${log.path}/%d{yyyy-MM-dd}/${log.name}.error.%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${file.pattern}"/>
+            <LevelMatchFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <!-- 每个文件最大10MB -->
+            <SizeBasedTriggeringPolicy size="10MB"/>
+            <!-- 最多保留30天的历史记录 -->
+            <DefaultRolloverStrategy max="30"/>
+        </RollingFile>
+    </Appenders>
+
+    <!-- 设置root logger -->
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="INFO_FILE"/>
+            <AppenderRef ref="ERROR_FILE"/>
+        </Root>
+    </Loggers>
+</Configuration>

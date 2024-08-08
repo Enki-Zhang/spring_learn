@@ -1,5 +1,11 @@
 package spring_pro.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.ToString;
+import org.apache.ibatis.annotations.Insert;
+
 /**
  * @author Enki
  * @ClassName User
@@ -7,31 +13,15 @@ package spring_pro.entity;
  * @Date 2024/8/6 21:34
  * @Version 1.0
  */
+@TableName("user")
+@Data
+@ToString
 public class User {
-    /**
-     * user id
-     */
+
+    @TableId("id")
     private int userId;
-
-    /**
-     * username.
-     */
-    private String userName;
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+    private String name;
+    private Integer age;
+    private String email;
 
 }
