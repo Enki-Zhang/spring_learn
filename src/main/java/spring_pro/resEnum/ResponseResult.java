@@ -7,14 +7,15 @@ import java.io.Serializable;
 
 /**
  * @ClassName ResponseResult
- * @Description TODO
+ * @Description 封装统一的返回结果格式
  * @Author Enki
  * @Date 2024/8/7 10:49
  * @Verison 1.0
  **/
 @Data
 @Builder
-public class ResponseResult<T> {
+public class ResponseResult<T> implements Serializable{
+    private static final long serialVersionUID = -1L;
     /**
      * response timestamp.
      */

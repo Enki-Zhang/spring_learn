@@ -24,8 +24,12 @@ import javax.websocket.server.PathParam;
 @RequestMapping("/user")
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-    @Autowired
+
     private UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/logger")
     public ResponseResult<User> loggerPri() {
@@ -53,7 +57,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/getUser/{name}")
-    public ResponseResult<User> getUser(@PathVariable String name) {
+    public ResponseResult<User> getUser(@PathVariable("name") String name) {
         logger.info("Received request to get user with name: {}", name);//这里的日志会记录在日志文件中 具体设置路径在-spring.xml
         User targetUser = userService.getUserByName(name);
         if (targetUser == null) {
