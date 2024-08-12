@@ -1,4 +1,4 @@
-package spring_pro.resEnum;
+package spring_pro.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +16,7 @@ import java.util.List;
  **/
 @Getter
 @AllArgsConstructor
-public enum ResponseStatus {
+public enum ResponseStatus implements BaseErrorInfoInterface {
     SUCCESS("200", "success"),
     FAIL("500", "failed"),
 
@@ -28,16 +28,27 @@ public enum ResponseStatus {
     /**
      * response code
      */
-    private final String responseCode;
+    private final String resultCode;
 
     /**
      * description.
      */
-    private final String description;
-
+    private final String resultMessage;
+    /**
+     * 创建不可修改列表可以确保 HTTP 状态码的定义和使用的一致性
+     */
     public static final List<ResponseStatus> HTTP_STATUS_ALL = Collections.unmodifiableList(
             Arrays.asList(HTTP_STATUS_200, HTTP_STATUS_400, HTTP_STATUS_401, HTTP_STATUS_403, HTTP_STATUS_500
             ));
 
 
+    @Override
+    public String getResultMessage() {
+        return resultMessage;
+    }
+
+    @Override
+    public String getResultCode() {
+        return resultCode;
+    }
 }

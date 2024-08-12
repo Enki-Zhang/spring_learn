@@ -1,4 +1,4 @@
-package spring_pro.resEnum;
+package spring_pro.result;
 
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +14,7 @@ import java.io.Serializable;
  **/
 @Data
 @Builder
-public class ResponseResult<T> implements Serializable{
+public class ResponseResult<T> implements Serializable {
     private static final long serialVersionUID = -1L;
     /**
      * response timestamp.
@@ -55,8 +55,8 @@ public class ResponseResult<T> implements Serializable{
      */
     public static <T> ResponseResult<T> success(T data) {
         return ResponseResult.<T>builder().data(data)
-                .message(ResponseStatus.SUCCESS.getDescription())
-                .status(ResponseStatus.SUCCESS.getResponseCode())
+                .message(ResponseStatus.SUCCESS.getResultMessage())
+                .status(ResponseStatus.SUCCESS.getResultCode())
                 .timestamp(System.currentTimeMillis())
                 .build();
     }
@@ -83,7 +83,7 @@ public class ResponseResult<T> implements Serializable{
     public static <T> ResponseResult<T> fail(T data, String message) {
         return ResponseResult.<T>builder().data(data)
                 .message(message)
-                .status(ResponseStatus.FAIL.getResponseCode())
+                .status(ResponseStatus.FAIL.getResultCode())
                 .timestamp(System.currentTimeMillis())
                 .build();
     }
